@@ -13,10 +13,9 @@ export default class Comp1 extends Component {
     ReadContents=()=>
         {
         console.log("inside ReadContents")
-        fetch("text.txt").
-        then((res)=>{console.log(res);
-            res.text()})
-       .then(response=> console.log("aa" + response))
+        fetch("text.txt")
+        .then((res)=>res.text())
+       .then((response)=> console.log("aa" + response))
         }
     
   render() {

@@ -8,13 +8,13 @@ const [user, setUser]= useState(
         job:"manager"
     }
 );
-useEffect(()=>
-{
-    fetch("https://reqres.in/api/users?page=2")
-    .then((res) => res.json())
-    .then((response) => console.log(response.data));
+// useEffect(()=>
+// {
+//     fetch("https://reqres.in/api/users?page=2")
+//     .then((res) => res.json())
+//     .then((response) => console.log(response.data));
    
-},[]);
+// },[]);
 
 const GetUsersList =()=>
 {
