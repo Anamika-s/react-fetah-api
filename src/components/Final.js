@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-export const Comp4 = () => {
+export const Final = () => {
 const [products, setProducts] = useState(null);
-const [product, setproduct]= useState(
-    { 
-      "id":"11",
+var product=
+{ 
+        "id":"10",
         "title": "new product",
         "description": "An apple mobile which is nothing like apple",
         "price": 549,
@@ -13,9 +13,7 @@ const [product, setproduct]= useState(
         "stock": 94,
         "brand": "Apple",
         "images": ""
-//     },
 }
-);
 // useEffect(()=>
 // {
 //     fetch("https://reqres.in/api/products?page=2")
@@ -42,16 +40,16 @@ const [product, setproduct]= useState(
 
 const GetproductsList = async () => {
   try {
-    const response = await fetch('http://localhost:8000/products?id=1');
+    const response = await fetch('http://localhost:8000/products');
     const data = await response.json();
     setProducts(data);
   } catch (error) {
     console.error('Error fetching products:', error);
   }
 };
- const Addproduct =  async ()=>
+ const Addproduct = ()=>
  {
-  const response  = await fetch("http://localhost:8000/products",
+  fetch("http://localhost:8000/products",
     {
     method:'POST',
      headers:
@@ -60,20 +58,76 @@ const GetproductsList = async () => {
         'Content-Type':'Applicaton/json'
      },
      body: JSON.stringify(product)
- });
- const res = await  res.json();
- console.log(res);
+ })
+ .then((res)=> res.json())
+ .then((response) =>  console.log(response))
  }
-   return (
+
+  const DeleteProduct= async(id)=>
+  {
+    console.log("first")
+    console.log(id)
+    try {
+     const resp = await fetch(`http://localhost:8000/products/`+id, {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      console.log(resp)
+      const updatedUsers = product.filter((product) => product.id !== 6);
+      setProducts(updatedUsers);
+    console.log(products)
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+  const EditProduct = (id)=>
+    {
+
+        var product=
+{ 
+    "id":id,
+        "title": "updated product",
+        "description": "An apple mobile which is nothing like apple",
+        "price": 549,
+        "discountPercentage": 12.96,
+        "rating": 4.69,
+        "stock": 94,
+        "brand": "Apple",
+        "images": ""
+}
+
+     fetch("http://localhost:8000/products/"+id,
+       {
+       method:'PUT',
+        headers:
+        {
+           'Accept':'Appication/json',
+           'Content-Type':'Applicaton/json'
+        },
+        body: JSON.stringify(product)
+    })
+    .then((res)=> res.json())
+    .then((response) =>  console.log(response))
+    }
+   
+  return (
     <div>Comp3
       {products && console.log(products.length)}
       {products && <h1> {products.length} </h1>}
       {products ? products.map((product)=>
-      <li> {product.id} - {product.title} - {product.description} </li>)
+      <li> {product.id} - {product.title} - {product.description} 
+       <button onClick={() => DeleteProduct(product.id)}>Delete</button>
+       <button onClick={()=>EditProduct(product.id)}> Edit Product</button>
+   
+      </li>)
        : <h1> There are no records</h1> }
         <button onClick={GetproductsList}> Get products List </button>
    <button onClick={Addproduct}> Add product </button>
    {/* <button onClick={DeleteProduct}> Delete Product</button> */}
+   
     </div>
   )
 }

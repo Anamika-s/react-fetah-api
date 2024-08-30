@@ -16,17 +16,42 @@ const [product, setproduct]= useState(
    
 // },[]);
 
-const GetproductsList =()=>
-{
+// const GetproductsList =()=>
+// {
+//     fetch("http://localhost:8000/products")
+//     .then((res) => res.json())
+//     .then((response) => 
+//         {
+//             // console.log(response.data)
+//             setProducts(response.data)
+//             // console.log({products})
+// });
+// }
+
+const GetproductsList = () =>
+  {
     fetch("http://localhost:8000/products")
-    .then((res) => res.json())
-    .then((response) => 
+    .then(result => 
+      {
+        
+        result.json()
+        .then(data => {setProducts(data)
+        console.log(data)
+      }
+        
+        )
+        .catch(error =>
+          {
+            console.log("Some error occurred", error)
+          })
+      
+      })
+      .catch(error=>
         {
-            // console.log(response.data)
-            setProducts(response.data)
-            // console.log({products})
-});
-}
+console.log(error)
+        })
+
+  }
 
  const Addproduct = ()=>
  {
