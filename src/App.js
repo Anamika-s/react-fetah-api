@@ -5,7 +5,7 @@ import { Comp2 } from './components/Comp2';
 import { Comp3 } from './components/Comp3';
 import { Comp4 } from './components/Comp4';
 import { Final } from './components/Final';
-
+import { CrudUsingAxios } from './components/axiosdemo/CrudUsingAxios';
 function App() {
   return (
     <div className="App">
@@ -13,8 +13,9 @@ function App() {
       {/* <Comp2/> */}
       {/* <Comp3/> */}
       {/* <Comp4/> */}
-      <Final/>
-     </div>
+      {/* <Final/> */}
+
+<CrudUsingAxios/>     </div>
   );
 }
 
